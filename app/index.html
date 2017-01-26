@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<title>Three.js: Lynda Tutorial</title>
+	<title>Three.js: Video Object Example</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/app.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -78,6 +78,31 @@
 			console.log("nope, texture comes before the material"); //---
 
 			//I'm skipping the reflection because I don't need it!
+			//TEMPORARILY ADDING REFLECTION TO SEE IF VIDEO WILL WORK
+			imageReflection = document.createElement('canvas');
+			imageReflection.width = 480;
+			imageReflection.height = 204;
+			console.log("I created a canvas for the video's reflection"); //---
+
+			imageReflectionContext = imageReflection.getContext('2d');
+			imageReflectionContext.fillStyle = '#000000';
+			imageReflectionContext.fillRect(0, 0, 480, 204);
+			console.log("I still don't know what context2d is doing"); //---
+
+			imageReflectionGradient = imageReflectionContext.createLinearGradient(0, 0, 0, 204);
+			imageReflectionGradient.addColorStop( 0.2, 'rgba(240, 240, 240, 1)' );
+			imageReflectionGradient.addColorStop( 1, 'rgba(240, 240, 240, 0.8)' );
+			console.log("I added a gradient to the video reflection"); //---
+
+			textureReflection = new THREE.Texture(imageReflection);
+			console.log("I created a new texture object for the video reflection");
+
+			var materialReflection = new THREE.MeshBasicMaterial({ 
+				map: textureReflection, 
+				side: THREE.BackSide,
+				overdraw: 0.5
+			});
+			console.log("I created a new material to make the reflection visible"); //---
 
 			var plane = new THREE.PlaneGeometry(480, 204, 4, 4); // I don't know what this plane is for either
 			console.log("I made a new plane object"); //---
@@ -185,9 +210,16 @@
 
 				if(texture) texture.needsUpdate = true;
 				console.log("I don't understand the syntax of this texture if statement"); //---
+				//TEMPORARILY ADDING REFLECTION TO SEE IF VIDEO WILL WORK
+				if(textureReflection) textureReflection.needsUpdate = true;
+				console.log("I don't understand the syntax of this texture reflection if statement"); //---
 			}
 
 			// again, I'm leaving the reflection stuff out because I don't need it
+			//TEMPORARILY ADDING REFLECTION TO SEE IF VIDEO WILL WORK
+			imageReflectionContext.drawImage( image, 0, 0 );
+			imageReflectionContext.fillStyle = imageReflectionGradient;
+			imageReflectionContext.fillRect (0, 0, 480, 204 );
 
 			renderer.render( scene, camera );
 			console.log("This object should finally make the scene visible in the browser"); //---
