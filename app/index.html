@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="css/app.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="js/three.min.js"></script>
+	<script src="js/utils/Detector.js"></script>
 	<script src="js/renderers/Projector.js"></script>
 	<script src="js/renderers/CanvasRenderer.js"></script>
 	<script src="js/libs/stats.min.js"></script>
@@ -33,9 +34,17 @@
 
 		var windowHalfX = window.innerWidth / 2;
 		var windowHalfY = window.innerHeight / 2;
-
-		init();
-		animate();
+		
+		if(Detector.webgl) { // Detect whether webgl is supported by the client's browser
+			init();
+			animate();
+		}
+		else {
+			var warning = Detector.getWebGLErrorMessage();
+			container = document.createElement('div');
+			document.body.appendChild(container);
+			container.appendChild(warning);
+		}
 
 		function init() {
 			container = document.createElement('div');
