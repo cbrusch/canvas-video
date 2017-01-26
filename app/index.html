@@ -89,140 +89,219 @@
 			init();
 			animate();
 		// $(function() {
-		function init() {
-			container = document.createElement('div');
-			console.log("I created a div"); //---
-			document.body.appendChild(container);
-			console.log("I added the div to the body"); //---
+		// function init() {
+		// 	container = document.createElement('div');
+		// 	console.log("I created a div"); //---
+		// 	document.body.appendChild(container);
+		// 	console.log("I added the div to the body"); //---
 
-			var info = document.createElement('div');
-			console.log("I created another div"); //---
+		// 	var info = document.createElement('div');
+		// 	console.log("I created another div"); //---
+		// 	info.style.position = 'absolute';
+		// 	info.style.top = '10px';
+		// 	info.style.width = '100%';
+		// 	info.style.textAlign = 'center';
+		// 	// info.innerHTML = '<p>Hi</p>';
+		// 	info.innerHTML = '<a href="http://threejs.org" target="_blank">three.js</a> - video demo. playing <a href="http://durian.blender.org/" target="_blank">sintel</a> trailer';
+		// 	console.log("I am adding CSS and HTML to the new div"); //---
+		// 	container.appendChild(info);
+		// 	console.log("I am appending the new div to the first div"); //---
+
+		// 	camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+		// 	camera.position.z = 1000;
+		// 	console.log("I created a camera and set it's z position"); //---
+
+		// 	scene = new THREE.Scene();
+		// 	console.log("I created a new scene object"); //---
+
+		// 	video = document.getElementById('video');
+
+		// 	image = document.createElement('canvas');
+		// 	image.width = 480;
+		// 	image.height = 204;
+		// 	console.log("I created a canvas for the video"); //---
+
+		// 	imageContext = image.getContext('2d'); // I don't know what the context does
+		// 	imageContext.fillStyle = '#000000';
+		// 	imageContext.fillRect(0, 0, 480, 204);
+		// 	console.log("I think I'm creating a 2D rect that's the same size as the video"); //---
+
+		// 	texture = new THREE.Texture(image);
+		// 	console.log("I think texture is like the material that makes a thing visible"); //---
+
+		// 	var material = new THREE.MeshBasicMaterial({ map: texture, overdraw: 0.5 });
+		// 	console.log("nope, texture comes before the material"); //---
+
+		// 	//I'm skipping the reflection because I don't need it!
+		// 	//TEMPORARILY ADDING REFLECTION TO SEE IF VIDEO WILL WORK
+		// 	imageReflection = document.createElement('canvas');
+		// 	imageReflection.width = 480;
+		// 	imageReflection.height = 204;
+		// 	console.log("I created a canvas for the video's reflection"); //---
+
+		// 	imageReflectionContext = imageReflection.getContext('2d');
+		// 	imageReflectionContext.fillStyle = '#000000';
+		// 	imageReflectionContext.fillRect(0, 0, 480, 204);
+		// 	console.log("I still don't know what context2d is doing"); //---
+
+		// 	imageReflectionGradient = imageReflectionContext.createLinearGradient(0, 0, 0, 204);
+		// 	imageReflectionGradient.addColorStop( 0.2, 'rgba(240, 240, 240, 1)' );
+		// 	imageReflectionGradient.addColorStop( 1, 'rgba(240, 240, 240, 0.8)' );
+		// 	console.log("I added a gradient to the video reflection"); //---
+
+		// 	textureReflection = new THREE.Texture(imageReflection);
+		// 	console.log("I created a new texture object for the video reflection");
+
+		// 	var materialReflection = new THREE.MeshBasicMaterial({ 
+		// 		map: textureReflection, 
+		// 		side: THREE.BackSide,
+		// 		overdraw: 0.5
+		// 	});
+		// 	console.log("I created a new material to make the reflection visible"); //---
+
+		// 	var plane = new THREE.PlaneGeometry(480, 204, 4, 4); // I don't know what this plane is for either
+		// 	console.log("I made a new plane object"); //---
+
+		// 	mesh = new THREE.Mesh( plane, material );
+		// 	console.log("I'm combining the plane object and the video material into a mesh object"); //---
+		// 	mesh.position.y = -306;
+		// 	mesh.rotation.x = - Math.PI;
+		// 	mesh.scale.x = mesh.scale.y = mesh.scale.z = 1.5; // I have no idea what these positions and scales are doing
+		// 	scene.add(mesh);
+		// 	console.log("I am adding the mesh to add the thing to the scene"); //---
+
+		// 	var separation = 150;
+		// 	var amountX = 10;
+		// 	var amountY = 10;
+
+		// 	var PI2 = Math.PI * 2;
+		// 	var material = new THREE.SpriteCanvasMaterial({
+		// 		color: 0x0808080,
+		// 		program: function(context) {
+		// 			context.beginPath();
+		// 			context.arc( 0, 0, 0.5, 0, PI2, true );
+		// 			context.fill();
+		// 		}
+		// 	});
+		// 	console.log("I have no idea what I'm doing with this new Sprite material for the canvas"); //---
+
+
+		// 	// These particles will probably be unnecessary
+		// 	for( var ix = 0; ix < amountX; ix++ ) {
+		// 		for( var iy = 0; iy < amountY; iy++ ) {
+		// 			particle = new THREE.Sprite(material);
+		// 			particle.position.x = ix * separation - ( (amountX * separation)/2 );
+		// 			particle.position.y = -153;
+		// 			particle.position.z = iy * separation - ( (amountY * separation)/2 );
+		// 			particle.scale.x = particle.scale.y = 2;
+		// 			scene.add(particle);
+		// 		}
+		// 	}
+		// 	console.log("I added a bunch of particles to the scene and I don't know why. possible to illustrate perspective?"); //---
+
+		// 	renderer = new THREE.CanvasRenderer();
+		// 	console.log("I'm still not quite sure what the renderer does"); //---
+		// 	renderer.setClearColor(0xf0f0f0);
+		// 	renderer.setPixelRatio(window.devicePixelRatio);
+		// 	renderer.setSize(window.innerWidth, window.innerHeight);
+		// 	console.log("I set the renderer's visible size as the full browser window. Not sure what the pixel ratio or clear color are doing"); //---
+		// 	container.appendChild(renderer.domElement);
+		// 	console.log("I am adding the renderer to the original container div"); //---
+
+		// 	stats = new Stats();
+		// 	console.log("I created a new Stats object. It show's the FPS in the upper left corner!"); //---
+		// 	container.appendChild(stats.dom);
+		// 	console.log("I added the stats object to the original container div"); //---
+
+		// 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		// 	console.log("I added an event listener function for mouse movement"); //---
+		// 	window.addEventListener( 'resize', onWindowResize, false );
+		// 	console.log("I added an event listener function for window resizing"); //---
+
+		// 	console.log("This is the end of my initial setup"); //---
+
+		// // 	animate();
+		// // 	console.log("I called the animate function"); //---
+		// // });
+		// }
+
+		function init() {
+			container = document.createElement( 'div' );
+			document.body.appendChild( container );
+			var info = document.createElement( 'div' );
 			info.style.position = 'absolute';
 			info.style.top = '10px';
 			info.style.width = '100%';
 			info.style.textAlign = 'center';
-			// info.innerHTML = '<p>Hi</p>';
 			info.innerHTML = '<a href="http://threejs.org" target="_blank">three.js</a> - video demo. playing <a href="http://durian.blender.org/" target="_blank">sintel</a> trailer';
-			console.log("I am adding CSS and HTML to the new div"); //---
-			container.appendChild(info);
-			console.log("I am appending the new div to the first div"); //---
-
+			container.appendChild( info );
 			camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
 			camera.position.z = 1000;
-			console.log("I created a camera and set it's z position"); //---
-
 			scene = new THREE.Scene();
-			console.log("I created a new scene object"); //---
-
-			video = document.getElementById('video');
-
-			image = document.createElement('canvas');
+			video = document.getElementById( 'video' );
+			//
+			image = document.createElement( 'canvas' );
 			image.width = 480;
 			image.height = 204;
-			console.log("I created a canvas for the video"); //---
-
-			imageContext = image.getContext('2d'); // I don't know what the context does
+			imageContext = image.getContext( '2d' );
 			imageContext.fillStyle = '#000000';
-			imageContext.fillRect(0, 0, 480, 204);
-			console.log("I think I'm creating a 2D rect that's the same size as the video"); //---
-
-			texture = new THREE.Texture(image);
-			console.log("I think texture is like the material that makes a thing visible"); //---
-
-			var material = new THREE.MeshBasicMaterial({ map: texture, overdraw: 0.5 });
-			console.log("nope, texture comes before the material"); //---
-
-			//I'm skipping the reflection because I don't need it!
-			//TEMPORARILY ADDING REFLECTION TO SEE IF VIDEO WILL WORK
-			imageReflection = document.createElement('canvas');
+			imageContext.fillRect( 0, 0, 480, 204 );
+			texture = new THREE.Texture( image );
+			var material = new THREE.MeshBasicMaterial( { map: texture, overdraw: 0.5 } );
+			imageReflection = document.createElement( 'canvas' );
 			imageReflection.width = 480;
 			imageReflection.height = 204;
-			console.log("I created a canvas for the video's reflection"); //---
-
-			imageReflectionContext = imageReflection.getContext('2d');
+			imageReflectionContext = imageReflection.getContext( '2d' );
 			imageReflectionContext.fillStyle = '#000000';
-			imageReflectionContext.fillRect(0, 0, 480, 204);
-			console.log("I still don't know what context2d is doing"); //---
-
-			imageReflectionGradient = imageReflectionContext.createLinearGradient(0, 0, 0, 204);
+			imageReflectionContext.fillRect( 0, 0, 480, 204 );
+			imageReflectionGradient = imageReflectionContext.createLinearGradient( 0, 0, 0, 204 );
 			imageReflectionGradient.addColorStop( 0.2, 'rgba(240, 240, 240, 1)' );
 			imageReflectionGradient.addColorStop( 1, 'rgba(240, 240, 240, 0.8)' );
-			console.log("I added a gradient to the video reflection"); //---
-
-			textureReflection = new THREE.Texture(imageReflection);
-			console.log("I created a new texture object for the video reflection");
-
-			var materialReflection = new THREE.MeshBasicMaterial({ 
-				map: textureReflection, 
-				side: THREE.BackSide,
-				overdraw: 0.5
-			});
-			console.log("I created a new material to make the reflection visible"); //---
-
-			var plane = new THREE.PlaneGeometry(480, 204, 4, 4); // I don't know what this plane is for either
-			console.log("I made a new plane object"); //---
-
+			textureReflection = new THREE.Texture( imageReflection );
+			var materialReflection = new THREE.MeshBasicMaterial( { map: textureReflection, side: THREE.BackSide, overdraw: 0.5 } );
+			//
+			var plane = new THREE.PlaneGeometry( 480, 204, 4, 4 );
 			mesh = new THREE.Mesh( plane, material );
-			console.log("I'm combining the plane object and the video material into a mesh object"); //---
+			mesh.scale.x = mesh.scale.y = mesh.scale.z = 1.5;
+			scene.add(mesh);
+			mesh = new THREE.Mesh( plane, materialReflection );
 			mesh.position.y = -306;
 			mesh.rotation.x = - Math.PI;
-			mesh.scale.x = mesh.scale.y = mesh.scale.z = 1.5; // I have no idea what these positions and scales are doing
-			scene.add(mesh);
-			console.log("I am adding the mesh to add the thing to the scene"); //---
-
+			mesh.scale.x = mesh.scale.y = mesh.scale.z = 1.5;
+			scene.add( mesh );
+			//
 			var separation = 150;
-			var amountX = 10;
-			var amountY = 10;
-
+			var amountx = 10;
+			var amounty = 10;
 			var PI2 = Math.PI * 2;
-			var material = new THREE.SpriteCanvasMaterial({
+			var material = new THREE.SpriteCanvasMaterial( {
 				color: 0x0808080,
-				program: function(context) {
+				program: function ( context ) {
 					context.beginPath();
 					context.arc( 0, 0, 0.5, 0, PI2, true );
 					context.fill();
 				}
-			});
-			console.log("I have no idea what I'm doing with this new Sprite material for the canvas"); //---
-
-
-			// These particles will probably be unnecessary
-			for( var ix = 0; ix < amountX; ix++ ) {
-				for( var iy = 0; iy < amountY; iy++ ) {
-					particle = new THREE.Sprite(material);
-					particle.position.x = ix * separation - ( (amountX * separation)/2 );
+			} );
+			for ( var ix = 0; ix < amountx; ix++ ) {
+				for ( var iy = 0; iy < amounty; iy++ ) {
+					particle = new THREE.Sprite( material );
+					particle.position.x = ix * separation - ( ( amountx * separation ) / 2 );
 					particle.position.y = -153;
-					particle.position.z = iy * separation - ( (amountY * separation)/2 );
+					particle.position.z = iy * separation - ( ( amounty * separation ) / 2 );
 					particle.scale.x = particle.scale.y = 2;
-					scene.add(particle);
+					scene.add( particle );
 				}
 			}
-			console.log("I added a bunch of particles to the scene and I don't know why. possible to illustrate perspective?"); //---
-
 			renderer = new THREE.CanvasRenderer();
-			console.log("I'm still not quite sure what the renderer does"); //---
-			renderer.setClearColor(0xf0f0f0);
-			renderer.setPixelRatio(window.devicePixelRatio);
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			console.log("I set the renderer's visible size as the full browser window. Not sure what the pixel ratio or clear color are doing"); //---
-			container.appendChild(renderer.domElement);
-			console.log("I am adding the renderer to the original container div"); //---
-
+			renderer.setClearColor( 0xf0f0f0 );
+			renderer.setPixelRatio( window.devicePixelRatio );
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			container.appendChild( renderer.domElement );
 			stats = new Stats();
-			console.log("I created a new Stats object. It show's the FPS in the upper left corner!"); //---
-			container.appendChild(stats.dom);
-			console.log("I added the stats object to the original container div"); //---
-
+			container.appendChild( stats.dom );
 			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-			console.log("I added an event listener function for mouse movement"); //---
+			//
 			window.addEventListener( 'resize', onWindowResize, false );
-			console.log("I added an event listener function for window resizing"); //---
-
-			console.log("This is the end of my initial setup"); //---
-
-		// 	animate();
-		// 	console.log("I called the animate function"); //---
-		// });
 		}
 
 		function onDocumentMouseMove(event) {
