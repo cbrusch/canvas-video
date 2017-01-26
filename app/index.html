@@ -25,6 +25,7 @@
 
 		var container, stats;
 
+		/* https://threejs.org/docs/#Reference/Objects/Mesh */
 		var camera, scene, renderer, mesh;
 
 		var video, image, imageContext, imageReflection, imageReflectionContext, imageReflectionGradient, texture, textureReflection;
@@ -50,6 +51,7 @@
 			container = document.createElement('div');
 			document.body.appendChild(container);
 
+			/* https://threejs.org/docs/#Reference/Cameras/PerspectiveCamera */
 			camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
 			camera.position.z = 1000;
 			scene = new THREE.Scene();
@@ -62,6 +64,8 @@
 			imageContext.fillRect(0, 0, image.width, image.height);
 
 			texture = new THREE.Texture(image);
+			/* https://threejs.org/docs/#Reference/Materials/Material */
+			// MeshBasicMaterial is a simple shading that doesn't respond to lighting by default
 			var material = new THREE.MeshBasicMaterial({ map: texture, overdraw: 0.5 });
 
 // I don't understand why I need the reflection part if I'm not using it. The video doesn't work without having this
@@ -77,9 +81,10 @@
 			textureReflection = new THREE.Texture(imageReflection);
 			var materialReflection = new THREE.MeshBasicMaterial({ map: textureReflection, side: THREE.BackSide, overdraw: 0.5 });
 
+			/* https://threejs.org/docs/#Reference/Geometries/PlaneGeometry */
 			var plane = new THREE.PlaneGeometry(image.width, image.height, 4, 4);
 			mesh = new THREE.Mesh( plane, material );
-			mesh.scale.x = mesh.scale.y = mesh.scale.z = 1.5;
+			mesh.scale.x = mesh.scale.y = mesh.scale.z = 1.5; //this seems to set the depth of the canvas in relation to the perpendicular particle plane
 			scene.add(mesh);
 
 			var separation = 150;
@@ -117,7 +122,7 @@
 		}
 
 		function onDocumentMouseMove(event) { // tracks mouse movement
-			mouseX = ( event.clientX - windowHalfX );
+			mouseX = ( event.clientX - windowHalfX ) * 0.2;
 			mouseY = ( event.clientY - windowHalfY ) * 0.2;
 		}
 
