@@ -45,7 +45,7 @@
 	</head>
 	<body>
 <!-- https://threejs.org/examples/#canvas_materials_video -->
-	<video id="video" autoplay loop webkit-playsinline style="display: none">
+<!--	<video id="video" autoplay loop webkit-playsinline style="display: none">
 		<source src="threejs/textures/sintel.mp4" type='video/mp4; codecs="avc1.4201E, mp4a.40.2"'>
 		<source src="threejs/textures/sintel.ogv" type='video/ogg; codecs="theora, vorbis"'>
 	</video>
@@ -68,7 +68,26 @@
 
 		init();
 		animate();
+-->
+		<video id="video" autoplay loop webkit-playsinline style="display:none">
+			<source src="threejs/textures/sintel.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+			<source src="threejs/textures/sintel.ogv" type='video/ogg; codecs="theora, vorbis"'>
+		</video>
 
+		<script>
+			var AMOUNT = 100;
+			var container, stats;
+			var camera, scene, renderer;
+			var video, image, imageContext,
+			imageReflection, imageReflectionContext, imageReflectionGradient,
+			texture, textureReflection;
+			var mesh;
+			var mouseX = 0;
+			var mouseY = 0;
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+			init();
+			animate();
 		// $(function() {
 		function init() {
 			container = document.createElement('div');

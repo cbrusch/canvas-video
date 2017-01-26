@@ -402,11 +402,10 @@ template {
 [hidden] {
   display: none; }
 
-body {
-  /*	background-color: #E3C2B9;*/
-  background-color: #f0f0f0;
-  overflow: hidden; }
-
+/*body {
+	background-color: #f0f0f0;
+	overflow: hidden;
+}*/
 /*video {
 	display: none;
 }*/
