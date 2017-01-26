@@ -49,16 +49,6 @@
 		function init() {
 			container = document.createElement('div');
 			document.body.appendChild(container);
-// I don't need an info box
-			// container = document.createElement( 'div' );
-			// document.body.appendChild( container );
-			// var info = document.createElement( 'div' );
-			// info.style.position = 'absolute';
-			// info.style.top = '10px';
-			// info.style.width = '100%';
-			// info.style.textAlign = 'center';
-			// info.innerHTML = '<a href="http://threejs.org" target="_blank">three.js</a> - video demo. playing <a href="http://durian.blender.org/" target="_blank">sintel</a> trailer';
-			// container.appendChild( info );
 
 			camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
 			camera.position.z = 1000;
@@ -69,35 +59,28 @@
 			image.height = 204;
 			imageContext = image.getContext('2d');
 			imageContext.fillStyle = '#000000';
-			imageContext.fillRect(0, 0, 480, 204);
+			imageContext.fillRect(0, 0, image.width, image.height);
 
 			texture = new THREE.Texture(image);
 			var material = new THREE.MeshBasicMaterial({ map: texture, overdraw: 0.5 });
 
 // I don't understand why I need the reflection part if I'm not using it. The video doesn't work without having this
 			imageReflection = document.createElement('canvas');
-			imageReflection.width = 480;
-			imageReflection.height = 204;
+			imageReflection.width = image.width;
+			imageReflection.height = image.height;
 			imageReflectionContext = imageReflection.getContext('2d');
 			imageReflectionContext.fillStyle = '#000000';
-			imageReflectionContext.fillRect(0, 0, 480, 204);
-			imageReflectionGradient = imageReflectionContext.createLinearGradient(0, 0, 0, 204);
+			imageReflectionContext.fillRect(0, 0, image.width, image.height);
+			imageReflectionGradient = imageReflectionContext.createLinearGradient(0, 0, 0, image.height);
 			imageReflectionGradient.addColorStop( 0.2, 'rgba(240, 240, 240, 1)' );
 			imageReflectionGradient.addColorStop( 1, 'rgba(240, 240, 240, 0.8)' );
 			textureReflection = new THREE.Texture(imageReflection);
 			var materialReflection = new THREE.MeshBasicMaterial({ map: textureReflection, side: THREE.BackSide, overdraw: 0.5 });
 
-			var plane = new THREE.PlaneGeometry(480, 204, 4, 4);
+			var plane = new THREE.PlaneGeometry(image.width, image.height, 4, 4);
 			mesh = new THREE.Mesh( plane, material );
 			mesh.scale.x = mesh.scale.y = mesh.scale.z = 1.5;
 			scene.add(mesh);
-
-// Add this back in to display the reflection plane
-			// mesh = new THREE.Mesh( plane, materialReflection );
-			// mesh.position.y = -306;
-			// mesh.rotation.x = - Math.PI;
-			// mesh.scale.x = mesh.scale.y = mesh.scale.z = 1.5;
-			// scene.add(mesh);
 
 			var separation = 150;
 			var amountX = 10;
@@ -163,14 +146,7 @@
 				imageContext.drawImage(video, 0, 0);
 
 				if(texture) texture.needsUpdate = true; // I don't understand the syntax of this texture if statement
-// Add this back in to animate the reflection plane
-				// if(textureReflection) textureReflection.needsUpdate = true;
 			}
-
-// Add this back in to render the reflection plane
-			// imageReflectionContext.drawImage( image, 0, 0 );
-			// imageReflectionContext.fillStyle = imageReflectionGradient;
-			// imageReflectionContext.fillRect (0, 0, 480, 204 );
 
 			renderer.render( scene, camera ); // render to make scene visible in the browser
 		}
