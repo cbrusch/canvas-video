@@ -21,6 +21,8 @@
 	</video>
 
 	<script>
+		var campo = true;
+
 		var AMOUNT = 100;
 
 		var container, stats;
@@ -53,6 +55,7 @@
 
 			/* https://threejs.org/docs/#Reference/Cameras/PerspectiveCamera */
 			camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+			// camera.position.z = 1000;
 			camera.position.z = 1000;
 			scene = new THREE.Scene();
 			video = document.getElementById('video');
@@ -145,6 +148,7 @@
 		function render() {
 			camera.position.x += ( mouseX - camera.position.x ) * 0.05; // maps camera to mouse position
 			camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
+
 			camera.lookAt(scene.position);
 
 			if( video.readyState === video.HAVE_ENOUGH_DATA ) { // draws video frames
@@ -153,7 +157,42 @@
 				if(texture) texture.needsUpdate = true; // I don't understand the syntax of this texture if statement
 			}
 
+			zoomIn();
+
 			renderer.render( scene, camera ); // render to make scene visible in the browser
+		}
+
+		/* https://bl.ocks.org/mpmckenna8/2be77a4a0385694f7cda */
+		function zoomIn() {
+			if(campo == true) {
+				console.log(camera.position.z);
+				if(camera.position.z>500) {
+					camera.position.z -= 1;
+				}
+				else {
+					console.log("camin else");
+					campo = false;
+					zoomOut();
+				}
+			}
+			else if(campo == false) {
+				zoomOut();
+				console.log(camera.position.z);
+			}
+		}
+
+		function zoomOut() {
+			if(camera.position.z < 1000) {
+				camera.position.z += 1;
+				console.log(camera.position.z);
+				console.log('going out');
+				console.log("camout if");
+			}
+			else {
+				campo = true;
+				console.log(camera.position.z);
+				console.log("camout else");
+			}
 		}
 	</script>
 </body>
