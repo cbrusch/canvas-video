@@ -138,9 +138,10 @@
 		}
 
 		function onDocumentMouseMove(event) {
-			console.log("I am tracking the mouse movement");
-			mouse.x = ( event.clientX - windowHalfX ) * 0.2 - 1;
-			mouse.y = ( event.clientY - windowHalfY ) * 0.2 + 1;
+			// This now seems to allow me to drag to tilt the video canvas, but I want it to be static
+			mouse.x = ( event.clientX - windowHalfX ) * 0.02 - 1;
+			mouse.y = ( event.clientY - windowHalfY ) * 0.02 + 1;
+			console.log(mouse.x + ", " + mouse.y);
 		}
 
 		function onWindowResize() {
@@ -160,7 +161,8 @@
 		}
 
 		function render() {
-			camera.lookAt(scene.position);
+			//This doesn't seem to be necessary now that I've removed the side-to-side camera movements
+			// camera.lookAt(scene.position);
 
 			if( video.readyState === video.HAVE_ENOUGH_DATA ) { // draws video frames
 				imageContext.drawImage(video, 0, 0);
