@@ -1,0 +1,26 @@
+Documentation Notes
+
+Note: Three.js accepts 3D models as JSON in a .js file, or as a list of vertices in a .obj file. Using JSON will allow your page to run faster.
+
+Your 3D model will likely be in .obj format after exporting from a 3D modeling program like Blender. The export may also include an .mtl file, which is the texture for the object.
+
+Note: There is supposed to be a plugin in three.js > utils > exporters > blender > addons > io_three that allows you to export as JSON for Three.js directly from Blender, but I could not get the plugin to even show up as an addon in Blender. So, I used the converter option below.
+
+In the Three.js build, an object converter Python script is in utils > converters > obj > convert_obj_three.py
+
+Copy the script file into whatever folder contains both your .obj and (optional) .mtl file(s). If the .obj file specifies an .mtl, then the .mtl file is required.
+
+Note: I'm running python 2.7, which is what most people use. There is a different python script in the obj folder if you're running python 3.
+
+In terminal, cd to the folder that holds the object files and python script. I usually keep it in threejs > objects > nameOfObject in whatever app I'm working on.
+
+Again in terminal, type the following and then hit enter to run the script: python convert_obj_three.py -i nameOfObject.obj -o nameOfObject.js
+
+Note: -i stands for input and -o stands for output. The output saves to the same folder as your input.
+
+This will convert the .obj file into a .js file. You can then delete the .obj file and the .mtl file and close terminal
+
+If your object also contains a .jpg image wrapper for the object, it's best to have it in the same folder as the new .js file.
+
+Now you're ready for loading the object and (optional) wrapper into Three.js!
+

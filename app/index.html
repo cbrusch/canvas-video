@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="css/app.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="js/three.min.js"></script>
-	<script src="http://threejs.org/examples/js/loaders/OBJLoader.js"></script>
+	<!-- <script src="http://threejs.org/examples/js/loaders/OBJLoader.js"></script> -->
 	<script src="https://dl.dropboxusercontent.com/u/3587259/Code/Threejs/OrbitControls.js"></script>
 	<script src="js/utils/Detector.js"></script>
 	<script src="js/renderers/Projector.js"></script>
@@ -23,8 +23,6 @@
 	</video>
 
 	<script>
-		// var THREE = require('three');
-		// var OrbitControls = require('three-orbit-controls');
 		var AMOUNT = 100;
 
 // MAIN
@@ -41,7 +39,6 @@
 		var viewFar = 10000;
 		var projector;
 		var mouse = {x: 0, y: 0};
-		// var INTERSECTED;
 
 		if(Detector.webgl) { // Detect whether webgl is supported by the client's browser
 			init();
@@ -120,6 +117,7 @@
 			}
 
 // OBJECT
+/* https://threejs.org/docs/api/loaders/JSONLoader.html */
 		// var myObject = new THREE.MeshBasicMaterial();
 		// myObject.map = THREE.ImageUtils.loadTexture('threejs/objects/rock/Rock-Texture-Surface.jpg');
 		// myObject.side = THREE.DoubleSide;
@@ -130,18 +128,7 @@
 		// };
 
 		var loader = new THREE.JSONLoader();
-		console.log("I'm creating the loader");
 		loader.load('threejs/objects/Rubiks-Cube/Rubiks-Cube.js', addModel);
-		console.log("I loaded my object");
-		// 	function(geometry) {
-		// 	var mesh = new THREE.Mesh(geometry, myObject);
-		// 	mesh.position.x = (Math.random() - Math.random()) * 100;
-		// 	mesh.position.y = (Math.random() - Math.random()) * 100;
-		// 	mesh.position.z = (Math.random() - Math.random()) * 100;
-		// 	mesh.dir = (Math.random() - Math.random()) * .01;
-		// 	scene.add(mesh);
-		// 	console.log("I added the object to my scene");
-		// };
 
 // RENDERER
 			renderer = new THREE.CanvasRenderer();
@@ -166,7 +153,6 @@
 		}
 
 		function addModel(object) {
-			console.log("what am I even doing?");
 			var myObject = new THREE.Mesh(
 				object, new THREE.MeshBasicMaterial({ color: "red", wireframe: false})
 				);
@@ -175,7 +161,6 @@
 			myObject.scale.set(4, 4, 4);
 			myObject.position.set(0, 0, 1);
 			scene.add(myObject);
-			// renderer.render( scene, camera );
 		}
 
 		function onDocumentMouseMove(event) {
@@ -202,9 +187,6 @@
 		}
 
 		function render() {
-			//This doesn't seem to be necessary now that I've removed the side-to-side camera movements
-			// camera.lookAt(scene.position);
-
 			if( video.readyState === video.HAVE_ENOUGH_DATA ) { // draws video frames
 				imageContext.drawImage(video, 0, 0);
 
@@ -217,53 +199,6 @@
 // SCROLLING
 /* https://stemkoski.github.io/Three.js/Mouse-Over.html */
 		function update() {
-			// // find intersections
-
-			// // create a Ray with origin at the mouse position
-			// //   and direction into the scene (camera direction)
-			// var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
-			// projector.unprojectVector( vector, camera );
-			// var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
-
-			// // create an array containing all objects in the scene with which the ray intersects
-			// var intersects = ray.intersectObjects( scene.children );
-
-			// // INTERSECTED = the object in the scene currently closest to the camera 
-			// //		and intersected by the Ray projected from the mouse position 	
-			
-			// // if there is one (or more) intersections
-			// if ( intersects.length > 0 )
-			// {
-			// 	// if the closest object intersected is not the currently stored intersection object
-			// 	if ( intersects[ 0 ].object != INTERSECTED ) 
-			// 	{
-			// 	    // restore previous intersection object (if it exists) to its original color
-			// 		if ( INTERSECTED ) 
-			// 			INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
-			// 		// store reference to closest object as current intersection object
-			// 		INTERSECTED = intersects[ 0 ].object;
-			// 		// store color of closest object (for later restoration)
-			// 		INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
-			// 		// set a new color for closest object
-			// 		INTERSECTED.material.color.setHex( 0xffff00 );
-			// 	}
-			// } 
-			// else // there are no intersections
-			// {
-			// 	// restore previous intersection object (if it exists) to its original color
-			// 	if ( INTERSECTED ) 
-			// 		INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
-			// 	// remove previous intersection object reference
-			// 	//     by setting current intersection object to "nothing"
-			// 	INTERSECTED = null;
-			// }
-
-
-			// if ( keyboard.pressed("z") ) 
-			// { 
-			// 	// do something
-			// }
-			
 			controls.update();
 			stats.update();
 		}
