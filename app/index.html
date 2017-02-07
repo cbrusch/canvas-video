@@ -39,6 +39,7 @@
 		var viewFar = 10000;
 		var projector;
 		var mouse = {x: 0, y: 0};
+		var JSONobject = 'threejs/objects/solidify-modifier/solidifyModifier.js';
 
 		if(Detector.webgl) { // Detect whether webgl is supported by the client's browser
 			init();
@@ -51,7 +52,7 @@
 			container.appendChild(warning);
 		}
 
-// FUNCTIONS
+// INITIALIZE
 		function init() {
 			container = document.createElement('div');
 			document.body.appendChild(container);
@@ -128,7 +129,7 @@
 		// };
 
 		var loader = new THREE.JSONLoader();
-		loader.load('threejs/objects/Rubiks-Cube/Rubiks-Cube.js', addModel);
+		loader.load(JSONobject, addModel);
 
 // RENDERER
 			renderer = new THREE.CanvasRenderer();
@@ -152,14 +153,17 @@
 			window.addEventListener( 'resize', onWindowResize, false );
 		}
 
+// FUNCTIONS
 		function addModel(object) {
 			var myObject = new THREE.Mesh(
-				object, new THREE.MeshBasicMaterial({ color: "red", wireframe: false})
+				object, new THREE.MeshBasicMaterial({ color: "orange", wireframe: false})
 				);
 			// myObject.map = THREE.TextureLoader('threejs/objects/rock/Rock-Texture-Surface.jpg');
 			// myObject.side = THREE.DoubleSide;
-			myObject.scale.set(4, 4, 4);
-			myObject.position.set(0, 0, 1);
+			myObject.scale.set(200, 200, 200);
+			myObject.position.set(0, 0, 50);
+			myObject.rotation.set(0, 300, 0);
+			myObject.__dirtyRotation = true;
 			scene.add(myObject);
 		}
 
