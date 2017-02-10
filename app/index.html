@@ -12,13 +12,8 @@
 	<script src="https://dl.dropboxusercontent.com/u/3587259/Code/Threejs/OrbitControls.js"></script>
 	<script src="js/utils/Detector.js"></script>
 	<script src="js/renderers/Projector.js"></script>
-<!-- Comment out next line to switch from Canvas to WebGL renderer -->
-<!-- 	<script src="js/renderers/CanvasRenderer.js"></script> -->
-<!-- 
-The disappearing cube face may be a canvas limitation. I should try to use the WebGL renderer, which is included in the three.js build and shouldn't need to be added as script. See links below:
-http://stackoverflow.com/questions/39181635/three-js-loaders
-http://stackoverflow.com/questions/20783459/three-spritecanvasmaterial-not-working
--->
+	<script src="js/renderers/CanvasRenderer.js"></script>
+
 	<script src="js/libs/stats.min.js"></script>
 </head>
 <body>
@@ -104,18 +99,13 @@ http://stackoverflow.com/questions/20783459/three-spritecanvasmaterial-not-worki
 			var amountX = 10;
 			var amountY = 10;
 			var PI2 = Math.PI * 2;
-		// comment out next 8 lines to switch from canvas to webGL renderer
-			// var material = new THREE.SpriteCanvasMaterial({
-			// 	color: 0x0808080,
-			// 	program: function(context) {
-			// 		context.beginPath();
-			// 		context.arc( 0, 0, 0.5, 0, PI2, true );
-			// 		context.fill();
-			// 	}
-			// });
-		// comment out next 3 lines to switch from webGL to canvas renderer
-			var material = new THREE.SpriteMaterial({
-				color: 0x0808080
+			var material = new THREE.SpriteCanvasMaterial({
+				color: 0x0808080,
+				program: function(context) {
+					context.beginPath();
+					context.arc( 0, 0, 0.5, 0, PI2, true );
+					context.fill();
+				}
 			});
 			for( var ix = 0; ix < amountX; ix++ ) {
 				for( var iy = 0; iy < amountY; iy++ ) {
@@ -143,15 +133,10 @@ http://stackoverflow.com/questions/20783459/three-spritecanvasmaterial-not-worki
 		loader.load(JSONobject, addModel);
 
 // RENDERER
-		// comment out next 5 lines to switch from canvas to webGL renderer
-			// renderer = new THREE.CanvasRenderer();
-			// renderer.setClearColor(0xf0f0f0);
-			// renderer.setPixelRatio(window.devicePixelRatio);
-			// renderer.setSize(window.innerWidth, window.innerHeight);
-			// container.appendChild(renderer.domElement);
-		// comment out next 3 lines to switching from webGL to canvas renderer
-			renderer = new THREE.WebGLRenderer();
+			renderer = new THREE.CanvasRenderer();
 			renderer.setClearColor(0xf0f0f0);
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
 			container.appendChild(renderer.domElement);
 
 // CONTROLS
